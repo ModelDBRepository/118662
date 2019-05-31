@@ -1,0 +1,32 @@
+load_file("nrngui.hoc")
+
+strdef tstr
+
+xpanel("Figures from Gouwens and Wilson 2009")
+xlabel("To reproduce a figure listed below click its button")
+xbutton("Figure 4a cell 1","restart_(\"figure_4a_cell1\")")
+xbutton("Figure 4a cell 2","restart_(\"figure_4a_cell2\")")
+xbutton("Figure 4a cell 3","restart_(\"figure_4a_cell3\")")
+xbutton("Figure 4b dendrite 1","restart_(\"figure_4b_dendrite1\")")
+xbutton("Figure 4b dendrite 2","restart_(\"figure_4b_dendrite2\")")
+xbutton("Figure 4b dendrite 3","restart_(\"figure_4b_dendrite3\")")
+
+xbutton("Exit","quit()")
+xpanel(5,100)
+
+pwmcnt = PWManager[0].count - 1 // the initial gui should be dismissed
+
+// not really restart - see first comment below - TMM 20090520
+proc restart_() {local i
+        PWManager[0].hide(1) // this closes above panel -can only run one
+// at a time unless the format of the files is changed to move away from
+// Neuroconstruct generated files to files that are designed to be re-launched.
+	for (i= PWManager[0].count-1; i >= pwmcnt; i -= 1) {
+		PWManager[0].close(i)
+		doNotify()
+	}
+	sprint(tstr, "%s.hoc", $s1)
+        cvode.active(1) // turn on variable step integrator
+       	load_file(1, tstr)
+        PWManager[0].close(1)
+}

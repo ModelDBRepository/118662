@@ -1,0 +1,24 @@
+Ri = 80
+Cm = 1
+Rm = 10000
+Re = 30
+Ce = .001
+
+proc init() {
+  LinearCircuit[0].R1 = Re/2
+  LinearCircuit[0].R3 = Re/2
+  LinearCircuit[0].C2 = Ce
+  
+  forall {
+    Ra = Ri
+    cm = Cm
+    gmax_LeakConductance = 1/Rm
+  }
+  finitialize(v_init)
+  if (cvode.active()) {
+    cvode.re_init()
+  } else {
+    fcurrent()
+  }
+  frecord_init()
+}

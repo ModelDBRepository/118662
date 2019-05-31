@@ -1,0 +1,68 @@
+objectvar save_window_, rvp_
+objectvar scene_vector_[9]
+objectvar ocbox_, ocbox_list_, scene_, scene_list_
+{ocbox_list_ = new List()  scene_list_ = new List()}
+
+//Begin LinearCircuit[0]
+{
+load_file("lincir.hoc", "LinearCircuit")
+}
+{
+ocbox_ = new LinearCircuit(1)
+}
+{object_push(ocbox_)}
+{version(2)}
+{mkelm(1, 130, 130, 2, 0)}
+15
+{mklabel(0, "R1", 15, 15)}
+{mklabel(1, "Vi", 15, 15)}
+{restore_ic(1, -50)}
+{mklabel(2, "Ve2", 15, 15)}
+{restore_ic(2, -50)}
+{mkelm(2, 150, 110, 2, -1.5708)}
+0.007
+{mklabel(0, "C2", 15, 15)}
+{mkelm(1, 170, 130, 2, 0)}
+15
+{mklabel(0, "R3", 15, 15)}
+{mklabel(2, "Vm", 15, 15)}
+{mkelm(0, 205, 110, 2.5, 2.2143)}
+{mkelm(8, 220, 70, 2, 0)}
+{mklabel(0, "dm1_combined_11[0].cable_0(0.5)", 25.918, -27.9807)}
+{sel.extra_info.set("dm1_combined_11[0].cable_0", 0.5) sel.extra_info.name(sel)}
+{mkelm(5, 90, 130, 2, 0)}
+{mklabel(0, "I6", 15, 15)}
+{sel.extra_info.restore()}
+3
+1.15 0
+0.5 0
+1e+09 0
+{mkelm(6, 70, 110, 2, 0)}
+{mkelm(6, 150, 70, 2, 0)}
+{parasitic_ = 0  noconsist_ = 0}
+{g.exec_menu("Simulate")  tool(2)}
+{sel = nil}
+{object_pop()}
+{
+{
+save_window_=ocbox_.g
+save_window_.size(0,300,0,200)
+scene_vector_[3] = save_window_
+ocbox_.g = save_window_
+save_window_.save_name("ocbox_.g")
+save_window_.label(145, 145, "R1", 1, 1, 0.5, 0.5, 1)
+save_window_.label(125, 145, "Vi", 1, 1, 0.5, 0.5, 1)
+save_window_.label(165, 145, "Ve2", 1, 1, 0.5, 0.5, 1)
+save_window_.label(165, 125, "C2", 1, 1, 0.5, 0.5, 1)
+save_window_.label(185, 145, "R3", 1, 1, 0.5, 0.5, 1)
+save_window_.label(205, 145, "Vm", 1, 1, 0.5, 0.5, 1)
+save_window_.label(245.918, 42.0193, "dm1_combined_11[0].cable_0(0.5)", 1, 1, 0.5, 0.5, 1)
+save_window_.label(105, 145, "I6", 1, 1, 0.5, 0.5, 1)
+}
+ocbox_.map("LinearCircuit[0]", 52, 582, 505, 246)
+}
+objref ocbox_
+//End LinearCircuit[0]
+
+objectvar scene_vector_[1]
+{doNotify()}
