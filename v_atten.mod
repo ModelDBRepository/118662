@@ -15,10 +15,5 @@ INITIAL {
 }
 
 BREAKPOINT {
-COMMENT
-        v_atten = (v - -60.0) / (60.0)
-ENDCOMMENT
-VERBATIM
-  v_atten = (v + 60.0) / (60.0);
-ENDVERBATIM
+  v_atten = (v + 60.0) / (60.0)
 }
